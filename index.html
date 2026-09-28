@@ -106,14 +106,23 @@ section > .wrap > h2{font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.025em;lin
 
 /* open source */
 .oss{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px}
-.oss-card{background:var(--green-soft);border-radius:var(--radius-lg);padding:32px;align-self:start;position:sticky;top:24px}
+.oss-col{display:grid;gap:20px;align-self:start;position:sticky;top:96px}
+.oss-main{display:grid;gap:36px;align-content:start}
+.oss-card{background:var(--green-soft);border-radius:var(--radius-lg);padding:32px}
+.oss-card .prs .ref .state{margin-left:8px}
 .oss-card h3{font-size:1.6rem;margin:0 0 8px;letter-spacing:-.01em}
 .oss-card p{margin:0 0 16px}
-.oss-card .prs{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.oss-card .prs{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:10px}
+.oss-card .glabel{font-size:1rem;font-weight:700;margin:22px 0 0;letter-spacing:-.01em}
+.oss-card .gnote{margin:4px 0 0;color:var(--muted);font-size:.95rem}
 .oss-card .prs a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:12px 14px;background:var(--paper);border-radius:var(--radius-sm);text-decoration:none}
 .oss-card .prs a:hover{outline:2px solid var(--green-deep)}
 .oss-card .prs .ref{font-family:var(--mono);font-size:.85rem;color:var(--green-deep);white-space:nowrap}
-.state{font-size:.8rem;font-weight:500;padding:2px 10px;border-radius:999px;background:var(--green);color:var(--ink);white-space:nowrap}
+.state{font-size:.72rem;font-weight:500;padding:2px 9px;border-radius:999px;background:var(--green);color:var(--ink);white-space:nowrap;font-family:var(--sans)}
+.state.rev{background:var(--pink)}
+.acts ul.certs{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.acts ul.certs li{padding:0;border-left:0;display:block}
+.acts ul.certs .org{color:var(--muted);font-size:.92rem}
 ol.story{list-style:none;counter-reset:s;margin:0;padding:0}
 ol.story li{counter-increment:s;position:relative;padding:0 0 36px 64px}
 ol.story li::before{content:counter(s);position:absolute;left:0;top:-2px;width:40px;height:40px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:700}
@@ -121,7 +130,7 @@ ol.story li::after{content:"";position:absolute;left:19px;top:44px;bottom:6px;wi
 ol.story li:last-child::after{display:none}
 ol.story h3{margin:0 0 6px;font-size:1.2rem;line-height:1.3}
 ol.story p{margin:0;color:var(--muted);max-width:60ch}
-@media (max-width:860px){.oss{grid-template-columns:1fr}.oss-card{position:static}}
+@media (max-width:860px){.oss{grid-template-columns:1fr}.oss-col{position:static}}
 
 /* projects */
 .featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:56px}
@@ -192,8 +201,9 @@ footer{padding:0 0 40px;color:var(--muted);font-size:.9rem}
 .proj ul.pts{margin:0;padding-left:18px;color:var(--muted);max-width:70ch}
 .proj ul.pts li{margin-bottom:6px}
 div.proj{cursor:default}
-div.proj:hover{border-color:transparent}
-div.proj .stack li{background:var(--paper)}
+div.proj.big:hover{border-color:transparent}
+div.proj.big .stack li{background:var(--paper)}
+div.proj:not(.big):hover{border-color:var(--line)}
 .langs{margin-top:32px;color:var(--muted)}
 .langs strong{color:var(--ink);font-weight:500}
 </style>
@@ -279,16 +289,23 @@ div.proj .stack li{background:var(--paper)}
         <ul class="stack"><li>Go</li><li>Docker</li><li>Security</li></ul>
       </a>
 
-      <div class="proj big" style="background:var(--green-soft)">
+      <a class="proj big" style="background:var(--green-soft)" href="https://www.innovationlabs.ro/teams/Zattify">
         <h3>Zattify <span class="tag-wip" style="background:var(--green)">Innovation Labs finalist</span></h3>
         <p class="meta">Mar – Jun 2026 · virtual power plant platform</p>
         <p>A real-time application that ingests smart meter telemetry every 5 seconds. The team then pivoted from general smart metering to aggregating prosumer batteries and inverters into one platform. I worked on the implementation and pitched for the team throughout the 10-week program, and we were one of 17 teams, out of 127, to reach the Innovation Labs finals.</p>
         <ul class="stack"><li>Real-time data</li><li>Energy</li><li>Startup</li></ul>
-      </div>
+      </a>
+
+      <a class="proj" href="https://github.com/lupsalexandra33/async-web-server">
+        <h3>Asynchronous Web Server</h3>
+        <p class="meta">Dec 2025 – Jan 2026</p>
+        <p>An event-driven HTTP/1.1 server in C that serves many connections at once on a single thread. Static files go out with zero-copy <code>sendfile</code>, dynamic reads go through kernel AIO, and every connection is driven by its own state machine.</p>
+        <ul class="stack"><li>C</li><li>Linux epoll</li><li>libaio</li></ul>
+      </a>
 
       <a class="proj" href="https://github.com/lupsalexandra33/mini-shell">
         <h3>mini-shell</h3>
-        <p>A Bash-like shell with pipes, redirection, job control and conditional operators, written directly on POSIX system calls.</p>
+        <p>A POSIX shell in C with command execution, I/O redirection, multi-stage pipes and conditional operators, built directly on system calls.</p>
         <ul class="stack"><li>C</li><li>POSIX</li><li>Linux</li></ul>
       </a>
 
@@ -330,39 +347,58 @@ div.proj .stack li{background:var(--paper)}
 <section id="open-source">
   <div class="wrap">
     <h2>Open source</h2>
-    <p class="intro">Bringing Ruby to Unikraft, a unikernel SDK that builds a single-purpose OS image around one application. Along the way I debugged a build that had been broken since 2021.</p>
+    <p class="intro">Contributions to Unikraft, a unikernel SDK that builds a single-purpose OS image around one application, and to ROSEdu's open-source teaching materials.</p>
 
     <div class="oss">
+      <div class="oss-col">
       <aside class="oss-card">
-        <h3>Unikraft · Ruby support</h3>
-        <p class="when" style="color:var(--green-deep);font-weight:500;margin:-4px 0 12px">2025 – present · C, Ruby, GNU build systems</p>
-        <p>Porting the Ruby interpreter to Unikraft and adding a Ruby application to the official catalog, working with the maintainers on review.</p>
+        <h3>Unikraft</h3>
+        <p class="when" style="color:var(--green-deep);font-weight:500;margin:-4px 0 12px">2025 – present · open-source unikernel SDK</p>
+        <p>Two strands of work in the Unikraft repositories, both going through maintainer review.</p>
+        <p class="glabel">Ruby support</p>
+        <p class="gnote">Porting the interpreter and adding a Ruby application to the catalog.</p>
         <ul class="prs">
-          <li><a href="https://github.com/unikraft/catalog-core/pull/91"><span>Ruby-Hello app with Firecracker support</span><span class="ref">catalog-core #91</span></a></li>
-          <li><a href="https://github.com/unikraft/lib-ruby/pull/4"><span>Update to Ruby 4.0.6 and port to musl</span><span class="ref">lib-ruby #4</span></a></li>
+          <li><a href="https://github.com/unikraft/catalog-core/pull/91"><span>ruby-hello with Firecracker support <span class="state rev">in review</span></span><span class="ref">catalog-core #91</span></a></li>
+          <li><a href="https://github.com/unikraft/lib-ruby/pull/4"><span>Ruby 4.0.6 on musl <span class="state rev">in review</span></span><span class="ref">lib-ruby #4</span></a></li>
           <li><a href="https://github.com/unikraft/lib-ruby/issues/1"><span>Cannot unpack Ruby source</span><span class="ref">lib-ruby issue #1</span></a></li>
           <li><a href="https://github.com/unikraft/catalog-core/issues/25"><span>Add Ruby</span><span class="ref">catalog-core issue #25</span></a></li>
         </ul>
+
+        <p class="glabel">Catalog manifests</p>
+        <p class="gnote">Adding and updating manifests so applications declare their Kraftfile build specifications and dependencies the same way.</p>
+        <ul class="prs">
+          <li><a href="https://github.com/unikraft/catalog/pull/255"><span>Application manifests <span class="state">merged</span></span><span class="ref">catalog #255</span></a></li>
+          <li><a href="https://github.com/unikraft/catalog/pull/256"><span>Application manifests <span class="state">merged</span></span><span class="ref">catalog #256</span></a></li>
+          <li><a href="https://github.com/unikraft/catalog/pull/244"><span>Application manifests <span class="state rev">in review</span></span><span class="ref">catalog #244</span></a></li>
+        </ul>
       </aside>
 
+      </div>
+
+      <div class="oss-main">
       <ol class="story">
         <li>
           <h3>Added a Ruby application to the catalog</h3>
-          <p>Wrote <code>ruby-hello</code>, a catalog application that runs on Firecracker, in 13 files and about 475 lines. It closes issue #25 and is currently in review.</p>
+          <p>Wrote <code>ruby-hello</code>, a catalog application that runs on Firecracker, in 13 files and about 475 lines. It closes issue #25 and is in review.</p>
         </li>
         <li>
           <h3>Found why the Ruby build had failed since 2021</h3>
-          <p><code>lib-ruby</code> downloaded a GitHub branch archive that ships <code>configure.ac</code> but not the generated <code>configure</code> or the <code>config.guess</code> / <code>config.sub</code> helpers, so autoconf regenerated the script and the build stopped. I proposed using the official release tarball, which ships all three.</p>
+          <p>The build downloaded a source archive that was missing the generated <code>configure</code> script and the helper files that go with it, so it stopped every time. I proposed fetching the official release tarball, which ships all of them.</p>
         </li>
         <li>
-          <h3>Traced the remaining blockers</h3>
-          <p>Found that Ruby 2.6's OpenSSL extension fails on any distro with OpenSSL 3.0 because deprecation warnings are treated as errors. Also reported two gaps in the Unikraft core: a missing <code>sys/prctl.h</code> and undefined <code>idtype_t</code> / <code>siginfo_t</code> in the newlib layer.</p>
-        </li>
-        <li>
-          <h3>Porting to Ruby 4.0.6 on musl</h3>
-          <p>After discussing it with the maintainers, the port now targets Ruby 4.0.6 on musl. The update is open as lib-ruby #4.</p>
+          <h3>Retargeting the port to Ruby 4.0.6 on musl</h3>
+          <p>Ruby 2.6 also fails to build against newer OpenSSL, and the Unikraft core is missing a few headers the interpreter needs. After discussing it with the maintainers, the port now targets Ruby 4.0.6 on musl, open as lib-ruby #4.</p>
         </li>
       </ol>
+      <aside class="oss-card" style="background:var(--pink-soft)">
+        <h3>ROSEdu</h3>
+        <p class="when" style="color:var(--pink-deep);font-weight:500;margin:-4px 0 12px">Romanian Open Source Education · Git, curriculum</p>
+        <p>Refactored and modernised the Git and GitHub workshop materials, rewriting the lab instructions and simplifying the setup students go through before they start.</p>
+        <ul class="prs">
+          <li><a href="https://github.com/ROSEdu/workshop-github/pull/40"><span>Workshop rewrite <span class="state">merged</span></span><span class="ref">workshop-github #40</span></a></li>
+        </ul>
+      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -398,9 +434,12 @@ div.proj .stack li{background:var(--paper)}
           <p>Binary analysis and exploitation.</p>
         </li>
         <li>
-          <h3>Certifications</h3>
-          <p class="role">Python Essentials 1 · Cisco Networking Academy</p>
-          <p>May 2026.</p>
+          <h3>Certifications and courses</h3>
+          <ul class="certs">
+            <li>AWS Academy Graduate, Cloud Architecting <span class="org">· course completion badge, Sept 2026</span></li>
+            <li>NSE 1 and NSE 2 Certified in Cybersecurity <span class="org">· Fortinet, Sept 2026</span></li>
+            <li>Python Essentials 1 <span class="org">· Cisco Networking Academy, May 2026</span></li>
+          </ul>
         </li>
       </ul>
 
@@ -421,7 +460,7 @@ div.proj .stack li{background:var(--paper)}
         <p class="when">2024 – 2028</p>
         <h3>B.Sc. Computer Science</h3>
         <p class="where">Faculty of Automatic Control and Computer Science, National University of Science and Technology POLITEHNICA Bucharest</p>
-        <p class="d">GPA 8.90 / 10. Coursework: data structures, algorithm analysis, object-oriented programming, operating systems, advanced C programming, networking protocols.</p>
+        <p class="d">GPA 8.90 / 10. Coursework: data structures, algorithm analysis, algorithm design, object-oriented programming, operating systems, computer architecture, numerical methods.</p>
       </li>
       <li>
         <p class="when">2020 – 2024</p>
